@@ -1,5 +1,6 @@
 package com.report.javaservice.service.impl;
 
+import com.report.javaservice.exceptions.PdfGenerationException;
 import com.report.javaservice.service.ReportService;
 import com.report.javaservice.service.domain.Student;
 import org.openpdf.text.*;
@@ -59,7 +60,7 @@ public class PdfReportServiceImpl implements ReportService<Student> {
             document.add(new Paragraph("Reporter Name: " + student.getReporterName()));
 
         } catch (Exception e) {
-            throw new RuntimeException("Error generating PDF", e);
+            throw new PdfGenerationException("Error generating student PDF", e);
         }
 
         return out.toByteArray();
