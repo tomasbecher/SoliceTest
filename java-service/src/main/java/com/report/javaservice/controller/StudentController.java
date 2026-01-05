@@ -1,5 +1,6 @@
 package com.report.javaservice.controller;
 
+import com.report.javaservice.client.impl.StudentApiClient;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
@@ -15,11 +16,13 @@ import org.springframework.web.bind.annotation.PathVariable;
 @RequiredArgsConstructor
 public class StudentController {
 
+    private final StudentApiClient studentApiClient;
+
     @GetMapping("/{id}")
     public ResponseEntity<byte[]> generate(@PathVariable Long id,
                                            @RequestHeader("Cookie") String cookie,
                                            @RequestHeader("X-CSRF-Token") String csrfToken) {
-        // TODO Get student data
+        var dto = studentApiClient.getById(id,cookie,csrfToken);
         // TODO Call PDF report service
 
         byte[] pdf = null;
